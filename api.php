@@ -2,7 +2,7 @@
 include "db.php";
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
-    // you want to allow, and if so:
+    // you want to allow, and if so: test
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Max-Age: 1000');
