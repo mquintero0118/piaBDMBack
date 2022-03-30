@@ -28,25 +28,52 @@ if (isset($_GET['action'])) {
 
 if ($action == "create") {
     $name = $_POST['name'];
+    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $pass = $_POST['pass'];
 
-// echo $name .'Welcome '.'your email adress is: '. $email . $pass;
+
     
-    $sql = "select * from users where email = '$email'";
-    $result=$conn->query($sql);
-    $num=mysqli_num_rows($result);
+
+    
+
+ //echo $name .'Welcome '.'  your email adress is: '. $email . $pass;
+
+
+
+
+
+//$sqlSelect = "SELECT * FROM test_table WHERE email = ?;";
+    $sqlSelect = $conn->prepare('SELECT * FROM users WHERE email = ?;');
+
+    $sqlSelect->bind_param("s", $email);
+    $sqlSelect->execute();
+    $result = $sqlSelect->get_result();
+
+    $num = $result->num_rows;
+
+    
+    // $result=$conn->query($sqlSelect);
+    // $num=mysqli_num_rows($result);
+
     if($num > 0) {
         $res['error'] = true;
-        $res['message'] = "Accout already exists";
+        $res['message'] = "Account already exists";
     }else{
-        echo "no existe";
-    }
+        // $sql = "INSERT INTO test_table (email, username, pass) VALUES ('".$email."', '".$name."', '".$pass."')";
+        // $conn->query($sql);
+
+        $sql = $conn->prepare('CALL sp_users("Insert", null, ?, ?, ?, ?, null, null, null, null, null, null, null);');
+        $sql->bind_param("ssss", $email, $pass, $name, $lastName );
+        $sql->execute();
+
+        echo "se registro el correo";
+   } 
     
 }
 
 $conn -> close();
-header("Content-type: application/json");
+header('Content-type: application/json');
 echo json_encode($res);
 die();
 ?>
