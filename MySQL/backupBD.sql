@@ -335,6 +335,160 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (19,'123@gmail.com','1233$$%##TRT445s','jose carlos ','torres',NULL,3,NULL,'2022-05-02 21:23:11',NULL,0,NULL,1),(20,'343444@gmail.com','232323$$$RRTT55','343','3434',NULL,3,NULL,'2022-05-02 21:29:58',NULL,0,NULL,1),(21,'12ww3@gmail.com','wewewe###E3334r','wewe','wqwew',NULL,3,NULL,'2022-05-02 23:06:10',NULL,0,NULL,1),(22,'1232323@gmail.com','EREURUE#$&*#&$RER22','2323','2323',NULL,3,NULL,'2022-05-02 23:06:47',NULL,0,NULL,1),(23,'343434@gmail.com','343434434##$R@@Eee','3434','3434',NULL,3,NULL,'2022-05-06 07:00:04',NULL,0,NULL,1),(24,'454545@gmail.com','4545323233$$$$%4445tT','454545','4545',NULL,3,NULL,'2022-05-06 08:27:43',NULL,0,NULL,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'pia_bdm'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `sp_categories` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categories`(
+IN pOpc varchar(100),
+IN pCategoryId INT,
+IN pDescription varchar(100),
+IN pColor varchar(100),
+IN pOrder varchar(100),
+IN pCreationDate datetime,
+IN pLastUpdateDate datetime,
+IN pCreatedBy INT,
+IN pLastUpdateBy INT,
+IN pActive tinyint
+)
+BEGIN
+
+
+IF pOpc = 'Insert'
+THEN 
+INSERT INTO categories
+( DESCRIPTION, COLOR, ORDER_CATEGORY)
+VALUES
+(pDescription, pColor, pOrder);
+
+
+END IF;
+
+
+IF pOpc = 'SelectCategories'
+THEN 
+SELECT DESCRIPTION FROM categories WHERE ACTIVE=1;
+
+
+END IF;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_news` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_news`(
+IN pOpc varchar(100),
+IN pUsersId INT,
+IN pEmail varchar(100),
+IN pPassword varchar(100),
+IN pName varchar(100),
+IN pLastName varchar(100),
+IN pPicture mediumblob,
+IN pUserTypesId INT,
+IN pPhone varchar(100),
+IN pLastUpdateDate datetime,
+IN pCreatedBy INT,
+IN pLastUpdateBy INT,
+IN pActive tinyint
+)
+BEGIN
+
+IF pOpc = 'Insert'
+THEN 
+INSERT INTO users
+(EMAIL, PASSWORD, NAME, LAST_NAME)
+VALUES
+(pEmail, pPassword, pName ,pLastName);
+
+
+END IF;
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_users` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users`(
+IN pOpc varchar(100),
+IN pUsersId INT,
+IN pEmail varchar(100),
+IN pPassword varchar(100),
+IN pName varchar(100),
+IN pLastName varchar(100),
+IN pPicture mediumblob,
+IN pUserTypesId INT,
+IN pPhone varchar(100),
+IN pLastUpdateDate datetime,
+IN pCreatedBy INT,
+IN pLastUpdateBy INT,
+IN pActive tinyint
+)
+BEGIN
+
+IF pOpc = 'Insert'
+THEN 
+INSERT INTO users
+(EMAIL, PASSWORD, NAME, LAST_NAME)
+VALUES
+(pEmail, pPassword, pName ,pLastName);
+
+
+END IF;
+
+
+IF pOpc = 'Login'
+THEN 
+SELECT users.EMAIL, users.NAME, users.LAST_NAME, user_types.DESCRIPTION FROM users INNER JOIN user_types ON
+user_types.USER_TYPES_ID = users.USER_TYPES_ID AND users.EMAIL = pEmail AND users.PASSWORD = pPassword;
+
+END IF;
+
+IF pOpc = 'CheckUsers'
+THEN 
+SELECT * FROM users WHERE EMAIL = pEmail;
+
+END IF;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -345,4 +499,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-24 20:11:03
+-- Dump completed on 2022-05-24 20:17:55
