@@ -28,6 +28,8 @@ protected function logUser($email,$pwd){
     }else{
         $arr['check'] = true;
         $userRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $arr["user_id"] = $userRow[0]["USERS_ID"];
+        $arr["user_picture"] = $userRow[0]["PICTURE"];
         $arr["name"] = $userRow[0]["NAME"];
         $arr["last_name"] = $userRow[0]["LAST_NAME"];
         $arr["user_type"] = $userRow[0]["DESCRIPTION"];
