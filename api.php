@@ -18,6 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     }
     exit(0);
 }
+
 $res = array('error' => false);
 $action = '';
 
@@ -31,7 +32,7 @@ if ($action == "create") {
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $pass = $_POST['pass'];
-
+ 
 
     
 
