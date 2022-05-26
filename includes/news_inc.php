@@ -45,9 +45,10 @@ if ($action == "create") {
     $signature = $_POST["signature"];
     $userId = $_POST["userId"];
     $date = $_POST["dateTime"];
-    $statusId = 1;
+    $statusId = $_POST["statusId"];
     $tags = $_POST["tag"];
     $section = $_POST["seccion"];
+    
 
     $tags_arr = explode(",",$tags);
 
@@ -83,6 +84,36 @@ if ($action == "create") {
 }else{
      $res["noFile"] = "rip";
     }
+
+
+    if(!empty($_FILES["video"]["name"])) {
+
+        $videoName = basename($_FILES["video"]["name"]);
+        $videoType = strtolower(pathinfo($videoName,PATHINFO_EXTENSION));
+        $allowedVideoTypes = array('mp4','wav');
+       // echo $videoName;
+        if(in_array($videoType,$allowedVideoTypes)){
+    
+            $videoName = $_FILES["video"]["tmp_name"];
+            $video64 = base64_encode(file_get_contents($videoName));
+    
+         $realVideo = 'data:video/'.$videoType.';base64,'.$video64;
+
+       // echo $video64;
+          NewsContr::withImg($realVideo)->registerImg();
+    
+              $res['videoSrc'] = $realVideo;
+    
+           //   echo "extension valida";
+         }else{
+        //         echo "extension no valida";
+         }
+    
+    }else{
+         $res["noFile"] = "rip";
+        }
+
+
     // if($check == false){
     //     $res['message1'] = "Entre a check false";
     //     $res['error'] = true;
