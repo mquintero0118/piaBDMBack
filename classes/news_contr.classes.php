@@ -20,6 +20,7 @@ private $publishedDate;
 private $likes;
 private $createdBy;
 private $statusId;
+private $image;
 
 public function __construct(){ }
 
@@ -51,6 +52,28 @@ protected function fillWithNewsData($title,$lead,$text,$country,$city,$state,$si
 public function registerNews(){
 
     $this->insertNewsData($this->title, $this->lead, $this->text, $this->country, $this->city, $this->state, $this->signature, $this->dateOfEvents,  $this->createdBy, $this->statusId, );
+}
+  
+
+public static function withImg($image){
+
+    $instance =  new self();
+    $instance->fillWithImg($image);
+
+    return $instance;
+
+}
+
+protected function fillWithImg($image){
+
+    $this->image = $image;
+   
+
+}
+
+public function registerImg(){
+
+    $this->insertImg($this->image);
 }
   
 

@@ -23,6 +23,23 @@ protected function insertNewsData($title,$lead,$text,$country,$city,$state,$sign
 }
 
 
+protected function insertImg($image){
+
+    $stmt = $this->connect()->prepare('CALL sp_multimedia("Insert", null, ?);');
+
+    if(!$stmt->execute(array($image))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+      
+        // echo "NO se registro la noticia";
+      $stmt = null;
+        exit();
+
+    }
+    $stmt = null;
+
+
+}
+
+
 
 }
 
