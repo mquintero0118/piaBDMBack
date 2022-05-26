@@ -46,6 +46,13 @@ if ($action == "create") {
     $userId = $_POST["userId"];
     $date = $_POST["dateTime"];
     $statusId = 1;
+    $tags = $_POST["tag"];
+    $section = $_POST["seccion"];
+
+    $tags_arr = explode(",",$tags);
+
+    $section_arr = explode(",",$section);
+    
    // $image = $_POST["image"];
 
    NewsContr::withNewsData($title,$lead,$text,$country,$city,$state,$signature,$date,$userId,$statusId)->registerNews();
@@ -74,13 +81,27 @@ if ($action == "create") {
     }
 
 }else{
-   // echo "rip";
+     $res["noFile"] = "rip";
     }
     // if($check == false){
     //     $res['message1'] = "Entre a check false";
     //     $res['error'] = true;
     //     $res['message'] = "El correo ya esta registrado";
     // }
+
+    foreach ($tags_arr as $value) {
+        NewsContr::withTag($value)->registerTag();
+      
+    }
+
+    foreach ($section_arr as $value) {
+        NewsContr::withSection($value)->registerSection();
+      
+    }
+
+
+
+
 
 }
 

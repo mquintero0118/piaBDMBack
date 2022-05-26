@@ -40,6 +40,39 @@ protected function insertImg($image){
 }
 
 
+protected function insertTag($tag){
+
+    $stmt = $this->connect()->prepare('CALL sp_tags("Insert", ?, null);');
+
+    if(!$stmt->execute(array($tag))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+      
+         echo "NO se registro el tag";
+      $stmt = null;
+        exit();
+
+    }
+    $stmt = null;
+
+
+}
+
+protected function insertSection($section){
+
+    $stmt = $this->connect()->prepare('CALL sp_categories("InsertIntoNewsCategories", null, ?, null, null, null, null, null, null, null);');
+
+    if(!$stmt->execute(array($section))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+      
+         echo "NO se registro la seccion";
+      $stmt = null;
+        exit();
+
+    }
+    $stmt = null;
+
+
+}
+
+
 
 }
 
