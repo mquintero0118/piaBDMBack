@@ -23,11 +23,11 @@ protected function insertNewsData($title,$lead,$text,$country,$city,$state,$sign
 }
 
 
-protected function insertImg($image){
+protected function insertImg($image,$isVideo){
 
-    $stmt = $this->connect()->prepare('CALL sp_multimedia("Insert", null, ?);');
+    $stmt = $this->connect()->prepare('CALL sp_multimedia("Insert", null, ?,?);');
 
-    if(!$stmt->execute(array($image))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+    if(!$stmt->execute(array($image,$isVideo))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
       
         // echo "NO se registro la noticia";
       $stmt = null;
@@ -72,6 +72,26 @@ protected function insertSection($section){
 
 }
 
+protected function getRecentNews(){
+
+    $arr = [];
+
+    $stmt = $this->connect()->prepare('CALL sp_news("SelectNewsRecent", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
+
+    if(!$stmt->execute()){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+     echo "NO se trajeron las noticias";
+        exit();
+
+    }
+
+    for($arr; $row= $stmt->fetchAll(PDO::FETCH_ASSOC); $arr[] = $row);
+
+    $stmt = null;
+
+    return $arr;
+
+
+}
 
 
 }

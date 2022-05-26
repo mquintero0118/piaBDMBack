@@ -53,7 +53,7 @@ if ($action == "create") {
 
 if ($action == "selectSections") {
 
-$section = new SectionContr();
+    $section = new SectionContr();
 
  $res = $section->selectSections();
 

@@ -23,6 +23,7 @@ private $statusId;
 private $image;
 private $tag;
 private $section;
+private $isVideo;
 
 public function __construct(){ }
 
@@ -58,25 +59,26 @@ public function registerNews(){
   
 ////////////
 
-public static function withImg($image){
+public static function withImg($image,$isVideo){
 
     $instance =  new self();
-    $instance->fillWithImg($image);
+    $instance->fillWithImg($image,$isVideo);
 
     return $instance;
 
 }
 
-protected function fillWithImg($image){
+protected function fillWithImg($image,$isVideo){
 
     $this->image = $image;
+    $this->isVideo = $isVideo;
    
 
 }
 
 public function registerImg(){
 
-    $this->insertImg($this->image);
+    $this->insertImg($this->image,$this->isVideo);
 }
 
 /////////
@@ -126,6 +128,15 @@ public function registerSection(){
     $this->insertSection($this->section);
 }
 
+public function selectRecentNews(){
+
+    $news;
+
+    $news = $this->getRecentNews();
+
+
+    return $news;
+}
 
 }
 

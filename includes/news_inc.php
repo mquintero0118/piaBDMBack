@@ -72,7 +72,7 @@ if ($action == "create") {
 
         $realImage = 'data:image/'.$imageType.';base64,'.$image64;
 
-        NewsContr::withImg($realImage)->registerImg();
+        NewsContr::withImg($realImage,0)->registerImg();
 
             $res['imagenSrc'] = $realImage;
 
@@ -100,7 +100,7 @@ if ($action == "create") {
          $realVideo = 'data:video/'.$videoType.';base64,'.$video64;
 
        // echo $video64;
-          NewsContr::withImg($realVideo)->registerImg();
+          NewsContr::withImg($realVideo,1)->registerImg();
     
               $res['videoSrc'] = $realVideo;
     
@@ -131,10 +131,19 @@ if ($action == "create") {
     }
 
 
+    
 
+}
+
+if ($action == "selectRecentNews") {
+
+    $news = new NewsContr();
+
+ $res = $news->selectSections();
 
 
 }
+
 
 
     
