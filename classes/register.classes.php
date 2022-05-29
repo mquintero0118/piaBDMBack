@@ -7,11 +7,11 @@ include('../classes/dbh.classes.php');
 class Register extends Dbh{
 
 
-protected function insertUser($name,$lastName,$email,$pwd){
+protected function insertUser($name,$lastName,$email,$pwd, $userTypeId){
 
-    $stmt = $this->connect()->prepare('CALL sp_users("Insert", null, ?, ?, ?, ?, null, null, null, null, null, null, null);');
+    $stmt = $this->connect()->prepare('CALL sp_users("Insert", null, ?, ?, ?, ?, null, ?, null, null, null, null, null);');
 
-    if(!$stmt->execute(array($email,$pwd,$name,$lastName))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+    if(!$stmt->execute(array($email,$pwd,$name,$lastName,$userTypeId))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
        // echo "NO se registro el correo";
         exit();
 

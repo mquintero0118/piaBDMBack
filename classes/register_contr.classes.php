@@ -11,13 +11,15 @@ private $name;
 private $lastName;
 private $email; 
 private $pwd;
+private $userTypeId;
 
-    public function __construct($name, $lastName, $email, $pwd){
+    public function __construct($name, $lastName, $email, $pwd, $userTypeId){
 
         $this->name = $name;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->pwd = $pwd;
+        $this->userTypeId = $userTypeId;
 
         
 
@@ -31,7 +33,7 @@ private $pwd;
              $check = false;
          }else{
 
-        $this->insertUser($this->name,$this->lastName, $this->email, $this->pwd);
+        $this->insertUser($this->name,$this->lastName, $this->email, $this->pwd,$this->userTypeId);
 
         $check = true;
         }

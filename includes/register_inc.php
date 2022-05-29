@@ -38,8 +38,9 @@ if ($action == "create") {
     $lastName = $_POST["lastName"];
     $email = $_POST["email"];
     $pwd = $_POST["pass"];
+    $userTypeId = $_POST["userTypeId"];
 
-    $register =  new RegisterContr($name, $lastName, $email, $pwd);
+    $register =  new RegisterContr($name, $lastName, $email, $pwd, $userTypeId);
 
     $check = $register->registerUser();
 

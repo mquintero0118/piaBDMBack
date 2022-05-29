@@ -139,7 +139,7 @@ if ($action == "selectRecentNews") {
 
     $news = new NewsContr();
 
- $res = $news->selectSections();
+ $res = $news->selectRecentNews();
 
 
 }

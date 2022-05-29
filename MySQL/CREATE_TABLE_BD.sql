@@ -6,20 +6,52 @@ select * from users;
 
 delete  from categories;
 
+select * from key_words_news;
 select * from news;
-
+select * from news_status;
 select * from categories;
+select * from news_categories;
+select * from multimedia;
+select * from news_multimedia;
+
+DELETE  FROM news_multimedia WHERE MULTIMEDIA_ID < 85;
+DELETE FROM multimedia WHERE MULTIMEDIA_ID < 85;
+
+CREATE VIEW NOTICIAS_PUBLICADAS AS
+SELECT news.NEWS_ID, news.TITLE, news.LEAD_TEXT, news.CITY, news.STATE, news.COUNTRY, news.SIGNATURE, news.NEWS_TEXT,
+news.DATE_OF_EVENTS, news.LIKES, news.CREATED_BY,news.PUBLISHED_DATE, news_multimedia.MULTIMEDIA_ID FROM news
+INNER JOIN news_multimedia ON news.NEWS_ID = news_multimedia.NEWS_ID AND news.STATUS = 3 AND news.ACTIVE=1;
+
+SELECT * FROM NOTICIAS_PUBLICADAS;
+
+
+DROP VIEW NOTICIAS_PUBLICADAS;
+
+
+CREATE VIEW NOTICIAS_COMPLETAS AS 
+SELECT  NOTICIAS_PUBLICADAS.NEWS_ID, NOTICIAS_PUBLICADAS.TITLE, NOTICIAS_PUBLICADAS.LEAD_TEXT, NOTICIAS_PUBLICADAS.CITY,
+ NOTICIAS_PUBLICADAS.STATE, NOTICIAS_PUBLICADAS.COUNTRY, NOTICIAS_PUBLICADAS.SIGNATURE, NOTICIAS_PUBLICADAS.NEWS_TEXT,
+NOTICIAS_PUBLICADAS.DATE_OF_EVENTS, NOTICIAS_PUBLICADAS.LIKES, NOTICIAS_PUBLICADAS.CREATED_BY,NOTICIAS_PUBLICADAS.PUBLISHED_DATE, NOTICIAS_PUBLICADAS.MULTIMEDIA_ID, multimedia.MEDIA, multimedia.IS_VIDEO FROM NOTICIAS_PUBLICADAS
+INNER JOIN multimedia ON multimedia.MULTIMEDIA_ID = NOTICIAS_PUBLICADAS.MULTIMEDIA_ID;
+
+SELECT * FROM NOTICIAS_COMPLETAS;
+
+DROP VIEW NOTICIAS_COMPLETAS;
+
+SELECT NEWS_ID,TITLE,LEAD_TEXT,CITY,STATE,COUNTRY,SIGNATURE,NEWS_TEXT,DATE_OF_EVENTS, LIKES, CREATED_BY, PUBLISHED_DATE, MEDIA,IS_VIDEO
+FROM NOTICIAS_COMPLETAS ORDER BY PUBLISHED_DATE DESC LIMIT 6;
 
 CALL sp_users("Login", null, "123@gmail.com", "1233$$%##TRT445s", null, null,null,null ,null , null,null ,null , null);
 
-CALL sp_categories("SelectCategories",null,"Nacional","Amarillo", 2, null, null,null,null,null);
+CALL sp_categories("InsertIntoNewsCategories",null,"Nacional","Amarillo", 2, null, null,null,null,null);
+
+SELECT USERS_ID, CREATION_DATE FROM users ORDER BY USERS_ID DESC LIMIT 1;
 
 
+insert INTO news_status(STATUS) values("PUBLICADA");
 
 
-
-
-
+CALL sp_tags("Insert", "tagTest", null);
 
 
 
