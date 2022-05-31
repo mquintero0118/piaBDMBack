@@ -72,6 +72,23 @@ protected function insertSection($section){
 
 }
 
+
+protected function selectByNewsId($newsId){
+
+    $stmt = $this->connect()->prepare('CALL sp_news("Insert", ?, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
+
+    if(!$stmt->execute(array($newsId))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+      
+         echo "NO se encontro la noticia";
+      $stmt = null;
+        exit();
+
+    }
+    $stmt = null;
+
+
+}
+
 protected function getRecentNews(){
 
     $arr = [];

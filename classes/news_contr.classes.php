@@ -128,6 +128,8 @@ public function registerSection(){
     $this->insertSection($this->section);
 }
 
+//////////
+
 public function selectRecentNews(){
 
     $news;
@@ -137,6 +139,32 @@ public function selectRecentNews(){
 
     return $news;
 }
+
+
+
+/////////////
+
+public static function withNewsId($newsId){
+
+    $instance =  new self();
+    $instance->fillWithNewsId($newsId);
+
+    return $instance;
+
+}
+
+protected function fillWithNewsId($newsId){
+
+    $this->newsId = $newsId;
+   
+
+}
+
+public function searchByNewsId($newsId){
+
+    $this->selectByNewsId($this->newsId);
+}
+
 
 }
 

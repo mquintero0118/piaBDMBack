@@ -145,7 +145,18 @@ if ($action == "selectRecentNews") {
 }
 
 
+if ($action == "selectByNewsId") {
 
+
+    $newsId = $_POST["newsId"];
+
+    $news = new NewsContr();
+
+    $res = $news->searchByNewsId($newsId);
+   
+
+
+}
     
 
 header('Content-type: application/json');
