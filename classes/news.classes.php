@@ -75,7 +75,10 @@ protected function insertSection($section){
 
 protected function selectByNewsId($newsId){
 
-    $stmt = $this->connect()->prepare('CALL sp_news("Insert", ?, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
+    $arr = [];
+   
+
+    $stmt = $this->connect()->prepare('CALL sp_news("SelectNewsById", ?, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
 
     if(!$stmt->execute(array($newsId))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
       
@@ -84,8 +87,15 @@ protected function selectByNewsId($newsId){
         exit();
 
     }
+
+
+    for($arr; $row= $stmt->fetchAll(PDO::FETCH_ASSOC); $arr[] = $row);
+
+
+        
     $stmt = null;
 
+    return $arr;
 
 }
 

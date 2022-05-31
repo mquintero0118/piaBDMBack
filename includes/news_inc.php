@@ -150,9 +150,11 @@ if ($action == "selectByNewsId") {
 
     $newsId = $_POST["newsId"];
 
-    $news = new NewsContr();
+    //echo $newsId;
 
-    $res = $news->searchByNewsId($newsId);
+    $res = NewsContr::withNewsId($newsId)->searchByNewsId($newsId);
+
+  //  $res = $news->searchByNewsId($newsId);
    
 
 

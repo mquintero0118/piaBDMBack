@@ -162,7 +162,11 @@ protected function fillWithNewsId($newsId){
 
 public function searchByNewsId($newsId){
 
-    $this->selectByNewsId($this->newsId);
+    $news;
+
+    $news = $this->selectByNewsId($this->newsId);
+
+    return $news;
 }
 
 
