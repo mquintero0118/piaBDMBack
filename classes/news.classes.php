@@ -76,6 +76,8 @@ protected function getRecentNews(){
 
     $arr = [];
 
+    $arrVids = [];
+
     $stmt = $this->connect()->prepare('CALL sp_news("SelectNewsRecent", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
 
     if(!$stmt->execute()){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
@@ -85,6 +87,27 @@ protected function getRecentNews(){
     }
 
     for($arr; $row= $stmt->fetchAll(PDO::FETCH_ASSOC); $arr[] = $row);
+
+    $stmt = $this->connect()->prepare('CALL sp_news("SelectNewsRecentVideos", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
+
+    if(!$stmt->execute()){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+        echo "NO se trajeron las noticias";
+           exit();
+   
+       }
+
+       for($arrVids; $row= $stmt->fetchAll(PDO::FETCH_ASSOC); $arrVids[] = $row);
+
+       
+
+       $index = 0;
+       foreach ($arr[0] as $value) {
+       
+        $arr[0][$index]["VIDEO"] = $arrVids[0][$index]["MEDIA"];
+
+        $index++;
+      
+    }
 
     $stmt = null;
 
