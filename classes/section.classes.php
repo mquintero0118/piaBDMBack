@@ -9,7 +9,7 @@ class Section extends Dbh{
 
 protected function insertSection($description,$color,$order){
 
-    $stmt = $this->connect()->prepare('CALL sp_categories("Insert",null,?,?, ?, null, null,null,null,null);');
+    $stmt = $this->connect()->prepare('CALL sp_categories("Insert",null,?,?, ?, null, null,null,null,null,null);');
 
     if(!$stmt->execute(array($description,$color,$order))){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
        echo "NO se registro la seccion";
@@ -26,7 +26,7 @@ protected function getSections(){
 
     $arr = [];
 
-    $stmt = $this->connect()->prepare('CALL sp_categories("SelectCategories",null,null,null, null, null, null,null,null,null);');
+    $stmt = $this->connect()->prepare('CALL sp_categories("SelectCategories",null,null,null, null, null, null,null,null,null,null);');
 
     if(!$stmt->execute()){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
      echo "NO se trajeron las secciones";

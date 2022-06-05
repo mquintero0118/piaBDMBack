@@ -59,6 +59,41 @@ public function registerNews(){
   
 ////////////
 
+
+public static function withNewsDataUpdate($newsId,$title,$lead,$text,$country,$city,$state,$signature,$dateOfEvents,$createdBy,$statusId){
+
+    $instance =  new self();
+    $instance->fillWithNewsDataUpdate($newsId,$title,$lead,$text,$country,$city,$state,$signature,$dateOfEvents,$createdBy,$statusId);
+
+    return $instance;
+
+}
+
+protected function fillWithNewsDataUpdate($newsId,$title,$lead,$text,$country,$city,$state,$signature,$dateOfEvents,$createdBy,$statusId){
+
+    $this->newsId = $newsId;
+    $this->title = $title;
+    $this->lead = $lead;
+    $this->text = $text;
+    $this->country = $country;
+    $this->city = $city;
+    $this->state = $state;
+    $this->signature = $signature;
+    $this->dateOfEvents = $dateOfEvents;
+    $this->createdBy = $createdBy;
+    $this->statusId = $statusId;
+
+}
+
+public function updateNews(){
+
+    $this->updateNewsData($this->newsId,$this->title, $this->lead, $this->text, $this->country, $this->city, $this->state, $this->signature, $this->dateOfEvents,  $this->createdBy, $this->statusId, );
+}
+
+
+
+/////////////
+
 public static function withImg($image,$isVideo){
 
     $instance =  new self();
@@ -83,6 +118,34 @@ public function registerImg(){
 
 /////////
 
+
+public static function withImgNewsId($image,$isVideo,$newsId){
+
+    $instance =  new self();
+    $instance->fillWithImgNewsId($image,$isVideo,$newsId);
+
+    return $instance;
+
+}
+
+protected function fillWithImgNewsId($image,$isVideo,$newsId){
+
+    $this->image = $image;
+    $this->isVideo = $isVideo;
+    $this->newsId = $newsId;
+   
+
+}
+
+public function updateImgData(){
+
+    $this->updateImg($this->image,$this->isVideo,$this->newsId);
+}
+
+
+
+///////////
+
 public static function withTag($tag){
 
     $instance =  new self();
@@ -106,6 +169,31 @@ public function registerTag(){
   
 
 ////////////////
+
+public static function withTagNewsId($tag, $newsId){
+
+    $instance =  new self();
+    $instance->fillWithTagNewsId($tag, $newsId);
+
+    return $instance;
+
+}
+
+protected function fillWithTagNewsId($tag){
+
+    $this->tag = $tag;
+    $this->newsId = $newsId;
+   
+
+}
+
+public function updateTagData(){
+
+    $this->updateTag($this->tag,$this->newsId);
+}
+
+
+///////////////
   
 public static function withSection($section){
 
@@ -140,7 +228,35 @@ public function selectRecentNews(){
     return $news;
 }
 
+//////////////////
+public static function withNewsIdSection($newsId, $section){
 
+    $instance =  new self();
+    $instance->fillWithNewsIdSection($newsId,$section);
+
+    return $instance;
+
+}
+
+protected function fillWithNewsIdSection($newsId, $section){
+
+    $this->newsId = $newsId;
+    $this->section = $section;
+   
+
+}
+
+
+
+
+public function updateNewsCategories(){
+
+    
+
+    $this->updateNewsSection($this->newsId,$this->section);
+
+   
+}
 
 /////////////
 
@@ -159,6 +275,8 @@ protected function fillWithNewsId($newsId){
    
 
 }
+
+
 
 public function searchByNewsId($newsId){
 
