@@ -228,6 +228,19 @@ public function selectRecentNews(){
     return $news;
 }
 
+////////////////
+
+
+public function selectNewsTerminadas(){
+
+    $news;
+
+    $news = $this->getNewsTerminadas();
+
+
+    return $news;
+}
+
 //////////////////
 public static function withNewsIdSection($newsId, $section){
 

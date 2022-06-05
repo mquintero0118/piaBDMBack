@@ -218,6 +218,32 @@ protected function getRecentNews(){
 }
 
 
+protected function getNewsTerminadas(){
+
+    $arr = [];
+
+    $arrVids = [];
+
+    $stmt = $this->connect()->prepare('CALL sp_news("SelectNewsTerminadas", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);');
+
+    if(!$stmt->execute()){ //SI NO SE LOGRA EJECUTAR EL QUERY, ENTRA AQUI
+     echo "NO se trajeron las noticias";
+        exit();
+
+    }
+
+    for($arr; $row= $stmt->fetchAll(PDO::FETCH_ASSOC); $arr[] = $row);
+
+    
+
+    $stmt = null;
+
+    return $arr;
+
+
+}
+
+
 }
 
 

@@ -258,6 +258,15 @@ if ($action == "selectRecentNews") {
 
 }
 
+if ($action == "selectNewsTerminadas") {
+
+    $news = new NewsContr();
+
+ $res = $news->selectNewsTerminadas();
+
+
+}
+
 
 if ($action == "selectByNewsId") {
 
